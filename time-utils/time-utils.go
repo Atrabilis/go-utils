@@ -2,17 +2,17 @@ package timeutils
 
 import "time"
 
-type monthRange struct {
+type MonthRange struct {
 	Start time.Time
 	Stop  time.Time
 }
 
-func MonthChunks(start, end time.Time) []monthRange {
+func MonthChunks(start, end time.Time) []MonthRange {
 	// inclusive start, exclusive stop
 	if !start.Before(end) {
 		return nil
 	}
-	var out []monthRange
+	var out []MonthRange
 	cur := time.Date(start.Year(), start.Month(), 1, 0, 0, 0, 0, time.UTC)
 	// include partial first month
 	if cur.Before(start) {
@@ -28,7 +28,7 @@ func MonthChunks(start, end time.Time) []monthRange {
 		if e.After(end) {
 			e = end
 		}
-		out = append(out, monthRange{Start: s, Stop: e})
+		out = append(out, MonthRange{Start: s, Stop: e})
 		cur = next
 	}
 	return out
